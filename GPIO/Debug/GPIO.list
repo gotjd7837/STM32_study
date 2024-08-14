@@ -131,11 +131,11 @@ int main(void)
  8000176:	f443 1240 	orr.w	r2, r3, #3145728	@ 0x300000
  800017a:	68bb      	ldr	r3, [r7, #8]
  800017c:	601a      	str	r2, [r3, #0]
-
-  /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
 
+  // GPIOC = (0x40011000), gpio_c 포트의 베이스 주소
+  // GPIOC_BSRR = (0x40011010), reg3는 GPIOC_BSRR 레지스터 주소
   volatile unsigned int *reg3 = (0x40011010);
  800017e:	4b0b      	ldr	r3, [pc, #44]	@ (80001ac <main+0x60>)
  8000180:	607b      	str	r3, [r7, #4]
@@ -143,21 +143,21 @@ int main(void)
   while (1)
   {
 	  // CASE 3, CASE 1을 해당 레지스터값을 이용해 구현
-	  *reg3 = 0x2000;
+	  *reg3 = 0x2000; // port bit set
  8000182:	687b      	ldr	r3, [r7, #4]
  8000184:	f44f 5200 	mov.w	r2, #8192	@ 0x2000
  8000188:	601a      	str	r2, [r3, #0]
 	  HAL_Delay(100);
  800018a:	2064      	movs	r0, #100	@ 0x64
  800018c:	f000 f93e 	bl	800040c <HAL_Delay>
-	  *reg3 = (0x2000 << 16);
+	  *reg3 = (0x2000 << 16); // port bit reset
  8000190:	687b      	ldr	r3, [r7, #4]
  8000192:	f04f 5200 	mov.w	r2, #536870912	@ 0x20000000
  8000196:	601a      	str	r2, [r3, #0]
 	  HAL_Delay(100);
  8000198:	2064      	movs	r0, #100	@ 0x64
  800019a:	f000 f937 	bl	800040c <HAL_Delay>
-	  *reg3 = 0x2000;
+	  *reg3 = 0x2000; // port bit set
  800019e:	bf00      	nop
  80001a0:	e7ef      	b.n	8000182 <main+0x36>
  80001a2:	bf00      	nop

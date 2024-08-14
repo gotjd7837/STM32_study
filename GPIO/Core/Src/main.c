@@ -122,7 +122,7 @@ int main(void)
 
   while (1)
   {
-	  // CASE 3, CASE 1을 해당 레지스터값을 이용해 구현
+	  // CASE 1을 해당 레지스터값을 이용해 구현
 	  *reg3 = 0x2000; // port bit set
 	  HAL_Delay(100);
 	  *reg3 = (0x2000 << 16); // port bit reset
