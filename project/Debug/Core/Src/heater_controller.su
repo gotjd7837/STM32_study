@@ -1,0 +1,2 @@
+../Core/Src/heater_controller.c:12:6:heater_controll	16	static
+../Core/Src/heater_controller.c:18:9:heater_state	4	static
