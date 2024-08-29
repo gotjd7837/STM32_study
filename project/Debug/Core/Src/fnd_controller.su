@@ -3,10 +3,3 @@
 ../Core/Src/fnd_controller.c:53:6:send	24	static
 ../Core/Src/fnd_controller.c:71:6:digit4_temper	32	static
 ../Core/Src/fnd_controller.c:85:6:FND_stop	8	static
-../Core/Src/fnd_controller.c:92:6:digit4_showzero	48	static
-../Core/Src/fnd_controller.c:108:6:digit4_replay	16	static
-../Core/Src/fnd_controller.c:113:6:digit4	16	static
-../Core/Src/fnd_controller.c:118:6:digit4showZero_repaly	16	static
-../Core/Src/fnd_controller.c:123:6:digit4showZero	16	static
-../Core/Src/fnd_controller.c:129:6:digit2	40	static
-../Core/Src/fnd_controller.c:141:6:digit2_port	16	static

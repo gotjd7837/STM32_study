@@ -17,16 +17,8 @@ void init_fnd();
 void send(uint8_t X);
 void send_port(uint8_t X, uint8_t port);
 
-void digit4_showzero(int n, int replay, int showZero);
 void digit4_temper(int n);
 void FND_stop();
-
-void digit4_replay(int n, int replay);
-void digit4(int n);
-void digit4showZero_repaly(int n, int replay);
-void digit4showZero(int n);
-void digit2(int n, int port, int replay);
-void digit2_port(int n, int port);
 
 
 #endif /* INC_FND_CONTROLLER_H_ */

@@ -16,6 +16,7 @@ enum {
 };
 
 void heater_controll();
+void heater_force_off();
 
 
 #endif /* INC_HEATER_CONTROLLER_H_ */
