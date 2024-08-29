@@ -19,6 +19,7 @@ void send_port(uint8_t X, uint8_t port);
 
 void digit4_showzero(int n, int replay, int showZero);
 void digit4_temper(int n);
+void FND_stop();
 
 void digit4_replay(int n, int replay);
 void digit4(int n);

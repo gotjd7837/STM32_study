@@ -20,10 +20,15 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f1xx_it.h"
-#include "fnd_controller.h"
-#include "ds18b20.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
+# include "button_controller.h"
+# include "fnd_controller.h"
+# include "ds18b20.h"
+# include <stdio.h>
+int _write(int file, char *ptr, int len);
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -202,6 +207,48 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+  * @brief This function handles EXTI line0 interrupt.
+  */
+void EXTI0_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI0_IRQn 0 */
+	if (set_temp < 100)
+	{
+		set_temp++;
+		OLED_temp_render();
+		printf("setting temp up!!\nSet_Temp : %d\r\n", set_temp);
+	}
+	else
+		printf("you can't increase the temperature\r\n", set_temp);
+  /* USER CODE END EXTI0_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(PB0_TEMP_SET_UP_Pin);
+  /* USER CODE BEGIN EXTI0_IRQn 1 */
+
+  /* USER CODE END EXTI0_IRQn 1 */
+}
+
+/**
+  * @brief This function handles EXTI line2 interrupt.
+  */
+void EXTI2_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI2_IRQn 0 */
+	if (set_temp > 0)
+	{
+		set_temp--;
+		OLED_temp_render();
+		printf("setting temp down!!\nSet_Temp : %d\r\n", set_temp);
+	}
+	else
+		printf("you can't decrease the temperature\r\n", set_temp);
+  /* USER CODE END EXTI2_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(PB2_TEMP_SET_DOWN_Pin);
+  /* USER CODE BEGIN EXTI2_IRQn 1 */
+
+  /* USER CODE END EXTI2_IRQn 1 */
+}
+
+/**
   * @brief This function handles TIM2 global interrupt.
   */
 void TIM2_IRQHandler(void)
@@ -222,7 +269,10 @@ void TIM3_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM3_IRQn 0 */
 
-	digit4_temper((int)(ds18b20[0].Temperature * 10));
+	if (start_sw == 0)
+		FND_stop();
+	else
+		digit4_temper((int)(ds18b20[0].Temperature * 10));
   /* USER CODE END TIM3_IRQn 0 */
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */

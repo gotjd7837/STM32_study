@@ -32,6 +32,7 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -59,6 +60,14 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define PA3_TEMP_DATA_Pin GPIO_PIN_3
 #define PA3_TEMP_DATA_GPIO_Port GPIOA
+#define PB0_TEMP_SET_UP_Pin GPIO_PIN_0
+#define PB0_TEMP_SET_UP_GPIO_Port GPIOB
+#define PB0_TEMP_SET_UP_EXTI_IRQn EXTI0_IRQn
+#define PB1_START_SW_PIN_Pin GPIO_PIN_1
+#define PB1_START_SW_PIN_GPIO_Port GPIOB
+#define PB2_TEMP_SET_DOWN_Pin GPIO_PIN_2
+#define PB2_TEMP_SET_DOWN_GPIO_Port GPIOB
+#define PB2_TEMP_SET_DOWN_EXTI_IRQn EXTI2_IRQn
 #define FND_SCLK_Pin GPIO_PIN_13
 #define FND_SCLK_GPIO_Port GPIOB
 #define FND_RCLK_Pin GPIO_PIN_14

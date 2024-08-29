@@ -68,8 +68,6 @@ void send(uint8_t X)
   }
 }
 
-static uint8_t m_port_num = 0;
-
 void digit4_temper(int n)
 {
   int n1, n2, n3, n4;
@@ -82,6 +80,13 @@ void digit4_temper(int n)
   send_port(_LED_0F[n2] & 0x7f , 0b0010);
   if(n>99)send_port(_LED_0F[n3], 0b0100);
   if(n>999)send_port(_LED_0F[n4], 0b1000);
+}
+
+void FND_stop()
+{
+	send_port(_LED_0F[15], 0b0001);
+	send_port(_LED_0F[15], 0b0010);
+	send_port(_LED_0F[22], 0b0100);
 }
 
 void digit4_showzero(int n, int replay, int showZero)

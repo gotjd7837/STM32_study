@@ -20,15 +20,23 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h \
+ ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- ../Core/Inc/fnd_controller.h ../Core/Inc/main.h \
  C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/ds18b20.h \
  C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/onewire.h \
  C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/ds18b20Config.h \
- ../Core/Inc/heater_controller.h
+ ../Core/Inc/fnd_controller.h ../Core/Inc/main.h \
+ ../Core/Inc/heater_controller.h ../Core/Inc/oled_controller.h \
+ ../Core/Inc/button_controller.h \
+ C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/fonts.h \
+ C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/ssd1306.h \
+ C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/fonts.h \
+ C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/test.h \
+ C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/bitmap.h \
+ C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/horse_anim.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 ../Core/Inc/stm32f1xx_hal_conf.h:
@@ -51,13 +59,22 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h:
+../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
-../Core/Inc/fnd_controller.h:
-../Core/Inc/main.h:
 C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/ds18b20.h:
 C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/onewire.h:
 C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/ds18b20Config.h:
+../Core/Inc/fnd_controller.h:
+../Core/Inc/main.h:
 ../Core/Inc/heater_controller.h:
+../Core/Inc/oled_controller.h:
+../Core/Inc/button_controller.h:
+C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/fonts.h:
+C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/ssd1306.h:
+C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/fonts.h:
+C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/test.h:
+C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/bitmap.h:
+C:/Users/gotjd/STM32CubeIDE/STM32_study/project/Core/Lib/Inc/horse_anim.h:

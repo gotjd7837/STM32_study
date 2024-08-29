@@ -15,7 +15,7 @@ enum {
 	t_ON = 1
 };
 
-void heater_controll(uint8_t on_off);
-uint8_t heater_state();
+void heater_controll();
+
 
 #endif /* INC_HEATER_CONTROLLER_H_ */
