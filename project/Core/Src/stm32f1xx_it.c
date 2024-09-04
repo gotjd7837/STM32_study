@@ -212,14 +212,16 @@ void SysTick_Handler(void)
 void EXTI0_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI0_IRQn 0 */
+
+	// set_temp는 100도 이상으로 설정 할 수 없음
 	if (set_temp < 100)
 	{
 		set_temp++;
-		OLED_temp_render();
-		printf("setting temp up!!\nSet_Temp : %d\r\n", set_temp);
+		OLED_temp_render(); // setT render..
+		printf("setting temp up..\r\nSet Temp : %d\r\n", set_temp); // uart 출력
 	}
 	else
-		printf("you can't increase the temperature\r\n", set_temp);
+		printf("Set temp cannot be set above 100.\r\n", set_temp);
   /* USER CODE END EXTI0_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(PB0_TEMP_SET_UP_Pin);
   /* USER CODE BEGIN EXTI0_IRQn 1 */
@@ -233,14 +235,16 @@ void EXTI0_IRQHandler(void)
 void EXTI2_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI2_IRQn 0 */
+
+	// set_temp는 0도 이하로 설정 할 수 없음
 	if (set_temp > 0)
 	{
 		set_temp--;
-		OLED_temp_render();
-		printf("setting temp down!!\nSet_Temp : %d\r\n", set_temp);
+		OLED_temp_render(); // setT render..
+		printf("setting temp down..\r\nSet Temp : %d\r\n", set_temp); // uart 출력
 	}
 	else
-		printf("you can't decrease the temperature\r\n", set_temp);
+		printf("Set temp cannot be set below 0.\r\n", set_temp);
   /* USER CODE END EXTI2_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(PB2_TEMP_SET_DOWN_Pin);
   /* USER CODE BEGIN EXTI2_IRQn 1 */
@@ -270,9 +274,9 @@ void TIM3_IRQHandler(void)
   /* USER CODE BEGIN TIM3_IRQn 0 */
 
 	if (start_sw == 0)
-		FND_stop();
+		FND_stop(); // OFF 출력
 	else
-		digit4_temper((int)(ds18b20[0].Temperature * 10));
+		digit4_temper((int)(ds18b20[0].Temperature * 10)); // temp 출력
   /* USER CODE END TIM3_IRQn 0 */
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */

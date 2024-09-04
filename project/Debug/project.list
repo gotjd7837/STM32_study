@@ -7,45 +7,45 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         00005d14  0800010c  0800010c  0000110c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       000015fc  08005e20  08005e20  00006e20  2**2
+  2 .rodata       000015f8  08005e20  08005e20  00006e20  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  0800741c  0800741c  0000907c  2**0
+  3 .ARM.extab    00000000  08007418  08007418  0000907c  2**0
                   CONTENTS
-  4 .ARM          00000000  0800741c  0800741c  0000907c  2**0
+  4 .ARM          00000000  08007418  08007418  0000907c  2**0
                   CONTENTS
-  5 .preinit_array 00000000  0800741c  0800741c  0000907c  2**0
+  5 .preinit_array 00000000  08007418  08007418  0000907c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  0800741c  0800741c  0000841c  2**2
+  6 .init_array   00000004  08007418  08007418  00008418  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  7 .fini_array   00000004  08007420  08007420  00008420  2**2
+  7 .fini_array   00000004  0800741c  0800741c  0000841c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .data         0000007c  20000000  08007424  00009000  2**2
+  8 .data         0000007c  20000000  08007420  00009000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          000006f0  2000007c  080074a0  0000907c  2**2
+  9 .bss          000006f0  2000007c  0800749c  0000907c  2**2
                   ALLOC
- 10 ._user_heap_stack 00000604  2000076c  080074a0  0000976c  2**0
+ 10 ._user_heap_stack 00000604  2000076c  0800749c  0000976c  2**0
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  0000907c  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00012556  00000000  00000000  000090a5  2**0
+ 12 .debug_info   00012535  00000000  00000000  000090a5  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00003010  00000000  00000000  0001b5fb  2**0
+ 13 .debug_abbrev 00002ffb  00000000  00000000  0001b5da  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00001228  00000000  00000000  0001e610  2**3
+ 14 .debug_aranges 00001228  00000000  00000000  0001e5d8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 00000e31  00000000  00000000  0001f838  2**0
+ 15 .debug_rnglists 00000e31  00000000  00000000  0001f800  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  0001a033  00000000  00000000  00020669  2**0
+ 16 .debug_macro  0001a033  00000000  00000000  00020631  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00016811  00000000  00000000  0003a69c  2**0
+ 17 .debug_line   00016811  00000000  00000000  0003a664  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0008f8a5  00000000  00000000  00050ead  2**0
+ 18 .debug_str    0008f8a5  00000000  00000000  00050e75  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  000e0752  2**0
+ 19 .comment      00000043  00000000  00000000  000e071a  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  0000552c  00000000  00000000  000e0798  2**2
+ 20 .debug_frame  0000552c  00000000  00000000  000e0760  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 0000005e  00000000  00000000  000e5cc4  2**0
+ 21 .debug_line_str 0000005e  00000000  00000000  000e5c8c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -3733,6 +3733,7 @@ void heater_controll()
  8001934:	b580      	push	{r7, lr}
  8001936:	b082      	sub	sp, #8
  8001938:	af00      	add	r7, sp, #0
+	// 현재 온도
 	int cur_temp = ds18b20[0].Temperature;
  800193a:	4b0d      	ldr	r3, [pc, #52]	@ (8001970 <heater_controll+0x3c>)
  800193c:	689b      	ldr	r3, [r3, #8]
@@ -3827,15 +3828,16 @@ int main(void)
  80019b0:	f000 f860 	bl	8001a74 <MX_I2C2_Init>
   /* USER CODE BEGIN 2 */
 
-  SSD1306_Init();
+  SSD1306_Init(); // OLED init
  80019b4:	f7ff fb82 	bl	80010bc <SSD1306_Init>
-  Ds18b20_Init();
+  Ds18b20_Init(); // temp sensor init
  80019b8:	f7fe fdb0 	bl	800051c <Ds18b20_Init>
-  init_fnd();
+  init_fnd(); // FND init
  80019bc:	f7ff fe5c 	bl	8001678 <init_fnd>
-  HAL_TIM_Base_Start_IT(&htim3);
+  HAL_TIM_Base_Start_IT(&htim3); // FND controll !
  80019c0:	4808      	ldr	r0, [pc, #32]	@ (80019e4 <main+0x50>)
  80019c2:	f002 fb15 	bl	8003ff0 <HAL_TIM_Base_Start_IT>
+
   OLED_defult_render();
  80019c6:	f000 fa53 	bl	8001e70 <OLED_defult_render>
 
@@ -3849,9 +3851,9 @@ int main(void)
  80019d0:	2b01      	cmp	r3, #1
  80019d2:	d104      	bne.n	80019de <main+0x4a>
 		{
-			Ds18b20_ManualConvert();
+			Ds18b20_ManualConvert(); // 온도 센서값 convert
  80019d4:	f7fe fe22 	bl	800061c <Ds18b20_ManualConvert>
-			heater_controll();
+			heater_controll(); // set temp에 따른 relay 제어
  80019d8:	f7ff ffac 	bl	8001934 <heater_controll>
  80019dc:	e7f5      	b.n	80019ca <main+0x36>
 		}
@@ -5317,6 +5319,8 @@ void EXTI0_IRQHandler(void)
  80021e0:	b580      	push	{r7, lr}
  80021e2:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN EXTI0_IRQn 0 */
+
+	// set_temp는 100도 이상으로 설정 할 수 없음
 	if (set_temp < 100)
  80021e4:	4b0e      	ldr	r3, [pc, #56]	@ (8002220 <EXTI0_IRQHandler+0x40>)
  80021e6:	681b      	ldr	r3, [r3, #0]
@@ -5329,9 +5333,9 @@ void EXTI0_IRQHandler(void)
  80021f0:	3301      	adds	r3, #1
  80021f2:	4a0b      	ldr	r2, [pc, #44]	@ (8002220 <EXTI0_IRQHandler+0x40>)
  80021f4:	6013      	str	r3, [r2, #0]
-		OLED_temp_render();
+		OLED_temp_render(); // setT render..
  80021f6:	f7ff fdf1 	bl	8001ddc <OLED_temp_render>
-		printf("setting temp up!!\nSet_Temp : %d\r\n", set_temp);
+		printf("setting temp up..\r\nSet Temp : %d\r\n", set_temp); // uart 출력
  80021fa:	4b09      	ldr	r3, [pc, #36]	@ (8002220 <EXTI0_IRQHandler+0x40>)
  80021fc:	681b      	ldr	r3, [r3, #0]
  80021fe:	4619      	mov	r1, r3
@@ -5340,7 +5344,7 @@ void EXTI0_IRQHandler(void)
  8002206:	e005      	b.n	8002214 <EXTI0_IRQHandler+0x34>
 	}
 	else
-		printf("you can't increase the temperature\r\n", set_temp);
+		printf("Set temp cannot be set above 100.\r\n", set_temp);
  8002208:	4b05      	ldr	r3, [pc, #20]	@ (8002220 <EXTI0_IRQHandler+0x40>)
  800220a:	681b      	ldr	r3, [r3, #0]
  800220c:	4619      	mov	r1, r3
@@ -5371,6 +5375,8 @@ void EXTI2_IRQHandler(void)
  800222c:	b580      	push	{r7, lr}
  800222e:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN EXTI2_IRQn 0 */
+
+	// set_temp는 0도 이하로 설정 할 수 없음
 	if (set_temp > 0)
  8002230:	4b0e      	ldr	r3, [pc, #56]	@ (800226c <EXTI2_IRQHandler+0x40>)
  8002232:	681b      	ldr	r3, [r3, #0]
@@ -5383,9 +5389,9 @@ void EXTI2_IRQHandler(void)
  800223c:	3b01      	subs	r3, #1
  800223e:	4a0b      	ldr	r2, [pc, #44]	@ (800226c <EXTI2_IRQHandler+0x40>)
  8002240:	6013      	str	r3, [r2, #0]
-		OLED_temp_render();
+		OLED_temp_render(); // setT render..
  8002242:	f7ff fdcb 	bl	8001ddc <OLED_temp_render>
-		printf("setting temp down!!\nSet_Temp : %d\r\n", set_temp);
+		printf("setting temp down..\r\nSet Temp : %d\r\n", set_temp); // uart 출력
  8002246:	4b09      	ldr	r3, [pc, #36]	@ (800226c <EXTI2_IRQHandler+0x40>)
  8002248:	681b      	ldr	r3, [r3, #0]
  800224a:	4619      	mov	r1, r3
@@ -5394,7 +5400,7 @@ void EXTI2_IRQHandler(void)
  8002252:	e005      	b.n	8002260 <EXTI2_IRQHandler+0x34>
 	}
 	else
-		printf("you can't decrease the temperature\r\n", set_temp);
+		printf("Set temp cannot be set below 0.\r\n", set_temp);
  8002254:	4b05      	ldr	r3, [pc, #20]	@ (800226c <EXTI2_IRQHandler+0x40>)
  8002256:	681b      	ldr	r3, [r3, #0]
  8002258:	4619      	mov	r1, r3
@@ -5412,7 +5418,7 @@ void EXTI2_IRQHandler(void)
  8002268:	bd80      	pop	{r7, pc}
  800226a:	bf00      	nop
  800226c:	20000010 	.word	0x20000010
- 8002270:	08005ea8 	.word	0x08005ea8
+ 8002270:	08005ea4 	.word	0x08005ea4
  8002274:	08005ecc 	.word	0x08005ecc
 
 08002278 <TIM2_IRQHandler>:
@@ -5800,7 +5806,7 @@ LoopFillZerobss:
   ldr r1, =_edata
  8002420:	2000007c 	.word	0x2000007c
   ldr r2, =_sidata
- 8002424:	08007424 	.word	0x08007424
+ 8002424:	08007420 	.word	0x08007420
   ldr r2, =_sbss
  8002428:	2000007c 	.word	0x2000007c
   ldr r4, =_ebss
@@ -10174,7 +10180,7 @@ if (((RCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK1) == RCC_CLOCKTYPE_PCLK
  8003d5e:	bf00      	nop
  8003d60:	40022000 	.word	0x40022000
  8003d64:	40021000 	.word	0x40021000
- 8003d68:	080073bc 	.word	0x080073bc
+ 8003d68:	080073b8 	.word	0x080073b8
  8003d6c:	20000014 	.word	0x20000014
  8003d70:	20000018 	.word	0x20000018
 
@@ -10309,8 +10315,8 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
  8003e06:	bf00      	nop
  8003e08:	40021000 	.word	0x40021000
  8003e0c:	007a1200 	.word	0x007a1200
- 8003e10:	080073d4 	.word	0x080073d4
- 8003e14:	080073e4 	.word	0x080073e4
+ 8003e10:	080073d0 	.word	0x080073d0
+ 8003e14:	080073e0 	.word	0x080073e0
  8003e18:	003d0900 	.word	0x003d0900
 
 08003e1c <HAL_RCC_GetHCLKFreq>:
@@ -10356,7 +10362,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  8003e4c:	4618      	mov	r0, r3
  8003e4e:	bd80      	pop	{r7, pc}
  8003e50:	40021000 	.word	0x40021000
- 8003e54:	080073cc 	.word	0x080073cc
+ 8003e54:	080073c8 	.word	0x080073c8
 
 08003e58 <HAL_RCC_GetPCLK2Freq>:
   * @note   Each time PCLK2 changes, this function must be called to update the
@@ -10382,7 +10388,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
  8003e74:	4618      	mov	r0, r3
  8003e76:	bd80      	pop	{r7, pc}
  8003e78:	40021000 	.word	0x40021000
- 8003e7c:	080073cc 	.word	0x080073cc
+ 8003e7c:	080073c8 	.word	0x080073c8
 
 08003e80 <RCC_Delay>:
   * @brief  This function provides delay (in milliseconds) based on CPU cycles method.
@@ -13294,10 +13300,10 @@ static void UART_SetConfig(UART_HandleTypeDef *huart)
  8004f32:	4798      	blx	r3
  8004f34:	3601      	adds	r6, #1
  8004f36:	e7f2      	b.n	8004f1e <__libc_init_array+0x1e>
- 8004f38:	0800741c 	.word	0x0800741c
- 8004f3c:	0800741c 	.word	0x0800741c
- 8004f40:	0800741c 	.word	0x0800741c
- 8004f44:	08007420 	.word	0x08007420
+ 8004f38:	08007418 	.word	0x08007418
+ 8004f3c:	08007418 	.word	0x08007418
+ 8004f40:	08007418 	.word	0x08007418
+ 8004f44:	0800741c 	.word	0x0800741c
 
 08004f48 <__retarget_lock_init_recursive>:
  8004f48:	4770      	bx	lr
@@ -13805,9 +13811,9 @@ static void UART_SetConfig(UART_HandleTypeDef *huart)
  80053d0:	a904      	add	r1, sp, #16
  80053d2:	f000 f9bd 	bl	8005750 <_printf_i>
  80053d6:	e7ed      	b.n	80053b4 <_svfiprintf_r+0x1c0>
- 80053d8:	080073e6 	.word	0x080073e6
- 80053dc:	080073ec 	.word	0x080073ec
- 80053e0:	080073f0 	.word	0x080073f0
+ 80053d8:	080073e2 	.word	0x080073e2
+ 80053dc:	080073e8 	.word	0x080073e8
+ 80053e0:	080073ec 	.word	0x080073ec
  80053e4:	00000000 	.word	0x00000000
  80053e8:	0800513d 	.word	0x0800513d
 
@@ -14075,9 +14081,9 @@ static void UART_SetConfig(UART_HandleTypeDef *huart)
  8005650:	a904      	add	r1, sp, #16
  8005652:	f000 f87d 	bl	8005750 <_printf_i>
  8005656:	e7e4      	b.n	8005622 <_vfiprintf_r+0x1e6>
- 8005658:	080073e6 	.word	0x080073e6
- 800565c:	080073ec 	.word	0x080073ec
- 8005660:	080073f0 	.word	0x080073f0
+ 8005658:	080073e2 	.word	0x080073e2
+ 800565c:	080073e8 	.word	0x080073e8
+ 8005660:	080073ec 	.word	0x080073ec
  8005664:	00000000 	.word	0x00000000
  8005668:	08005417 	.word	0x08005417
 
@@ -14411,8 +14417,8 @@ static void UART_SetConfig(UART_HandleTypeDef *huart)
  8005980:	2500      	movs	r5, #0
  8005982:	f104 0619 	add.w	r6, r4, #25
  8005986:	e7f5      	b.n	8005974 <_printf_i+0x224>
- 8005988:	080073f7 	.word	0x080073f7
- 800598c:	08007408 	.word	0x08007408
+ 8005988:	080073f3 	.word	0x080073f3
+ 800598c:	08007404 	.word	0x08007404
 
 08005990 <__sflush_r>:
  8005990:	f9b1 200c 	ldrsh.w	r2, [r1, #12]

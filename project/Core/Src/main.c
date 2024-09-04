@@ -116,10 +116,11 @@ int main(void)
   MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
 
-  SSD1306_Init();
-  Ds18b20_Init();
-  init_fnd();
-  HAL_TIM_Base_Start_IT(&htim3);
+  SSD1306_Init(); // OLED init
+  Ds18b20_Init(); // temp sensor init
+  init_fnd(); // FND init
+  HAL_TIM_Base_Start_IT(&htim3); // FND controll !
+
   OLED_defult_render();
 
   /* USER CODE END 2 */
@@ -130,8 +131,8 @@ int main(void)
 
 		if (check_start_sw() == t_ON)
 		{
-			Ds18b20_ManualConvert();
-			heater_controll();
+			Ds18b20_ManualConvert(); // 온도 센서값 convert
+			heater_controll(); // set temp에 따른 relay 제어
 		}
 		else
 			heater_force_off();

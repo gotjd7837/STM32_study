@@ -1,2 +1,2 @@
 ../Core/Src/heater_controller.c:12:6:heater_controll	16	static
-../Core/Src/heater_controller.c:22:6:heater_force_off	8	static
+../Core/Src/heater_controller.c:23:6:heater_force_off	8	static

@@ -11,6 +11,7 @@
 
 void heater_controll()
 {
+	// 현재 온도
 	int cur_temp = ds18b20[0].Temperature;
 
 	if (set_temp > cur_temp)
